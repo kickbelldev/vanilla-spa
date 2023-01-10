@@ -1,7 +1,18 @@
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    Hello, vite!
-  </div>
-`
+import router from './router'
+import navigateTo from './utils/navigateTo'
 
-export {}
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).matches('[data-link]')) {
+      e.preventDefault()
+      const target = e.target as HTMLAnchorElement
+      navigateTo(target.href)
+    }
+  })
+
+  window.addEventListener('popstate', (e) => {
+    router()
+  })
+
+  router()
+})
