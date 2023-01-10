@@ -10,13 +10,13 @@ interface Route {
   resolved?: RegExpMatchArray | null
 }
 
+const routes: Route[] = [
+  { path: '/', view: Home as typeof Component },
+  { path: '/post/:id', view: Post as typeof Component },
+]
+
 const router = () => {
   const $root = document.querySelector('#root')!
-
-  const routes: Route[] = [
-    { path: '/', view: Home as typeof Component },
-    { path: '/post/:id', view: Post as typeof Component },
-  ]
 
   const { pathname } = location
 
