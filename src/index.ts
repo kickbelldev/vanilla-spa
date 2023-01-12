@@ -3,10 +3,11 @@ import navigateTo from './utils/navigateTo'
 
 document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).matches('[data-link]')) {
+    const $a = (e.target as HTMLElement).closest('a')
+    console.log($a)
+    if ($a?.matches('[data-link]')) {
       e.preventDefault()
-      const target = e.target as HTMLAnchorElement
-      navigateTo(target.href)
+      navigateTo($a.href)
     }
   })
 
