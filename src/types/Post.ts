@@ -8,7 +8,3 @@ export interface PostType {
 }
 
 export type PostListType = PostType[]
-
-export interface PostListRes {
-  posts: PostList
-}
