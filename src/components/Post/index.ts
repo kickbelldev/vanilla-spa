@@ -62,8 +62,8 @@ class Post extends Component<PostStateType, PostPropsType> {
     }
     return `
     <div class=${styles.container}>
-      <div class=${styles.title}>${this.state.post.title}</dt>
-      <div class=${styles.body}>${this.state.post.content}</dd>
+      <div class=${styles.title}>${this.state.post.title}</div>
+      <div class=${styles.body}>${this.state.post.content}</div>
     </div>
     <div class=${styles.commentContainer}></div>
     `

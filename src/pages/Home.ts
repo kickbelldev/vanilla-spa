@@ -18,7 +18,6 @@ class Home extends Component<PostListStateType, PropsType> {
     fetch
       .get<Response<PostListRes>>('/posts')
       .then(({ data: res }) => {
-        console.log(res)
         this.setState({ list: res.data.posts })
       })
       .catch((err: AxiosError) => {
@@ -38,10 +37,8 @@ class Home extends Component<PostListStateType, PropsType> {
 
   template(): string {
     return `
-    <div>
       <header></header>
       <div class="post-list"></div>
-    </div>
     `
   }
 }

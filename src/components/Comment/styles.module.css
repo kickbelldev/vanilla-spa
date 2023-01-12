@@ -9,6 +9,7 @@
 
 .content {
   margin: 9px 12px;
+  word-break: break-all;
   flex-grow: 1;
 }
 
@@ -16,6 +17,7 @@ button.delete {
   width: 18px;
   height: 18px;
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   background: #e2e2e2;

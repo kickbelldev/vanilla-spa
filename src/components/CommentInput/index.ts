@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios'
 import Component, { PropsType, StateType } from '../../Component'
-import { CommentType } from '../../types/Post'
 import { AddCommentRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
 import styles from './styles.module.css'
