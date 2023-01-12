@@ -11,7 +11,7 @@ interface PostProps extends PropsType {
 class PostListItem extends Component<PostState, PostProps> {
   template(): string {
     return `
-    <a href="/post/${this.props.post.postId}">
+    <a href="/post/${this.props.post.postId}" data-link>
       <dl class=${styles.item}>
         <dt class=${styles.title}>${this.props.post.title}</dt>
         <dd class=${styles.body}>${this.props.post.content}</dd>
