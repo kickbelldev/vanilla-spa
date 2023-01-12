@@ -18,7 +18,7 @@ interface PostPropsType extends PropsType {
 
 class Post extends Component<PostStateType, PostPropsType> {
   setup(): void {
-    this.setState({ loading: true })
+    this.state = { loading: true }
   }
 
   didMount(): void {
