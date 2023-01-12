@@ -1,8 +1,9 @@
 import _ from 'lodash'
 import Component from './Component'
+import Test from './pages/Test'
 import Home from './pages/Home'
-import PostList from './pages/PostList'
 import pathToRegex from './utils/pathToRegex'
+import PostPage from './pages/Post'
 
 interface Route {
   path: string
@@ -12,8 +13,8 @@ interface Route {
 
 const routes: Route[] = [
   { path: '/', view: Home as typeof Component },
-  // { path: '/post/:id', view: Post as typeof Component },
-  { path: '/post', view: PostList as typeof Component },
+  { path: '/post/:id', view: PostPage as typeof Component },
+  { path: '/test', view: Test as typeof Component },
 ]
 
 const router = () => {
@@ -30,7 +31,7 @@ const router = () => {
 
   if (match) {
     match.resolved?.shift()
-    new match.view($root, { pageParams: _.toArray(match.resolved) })
+    const view = new match.view($root, { pageParams: _.toArray(match.resolved) })
     return
   }
 
