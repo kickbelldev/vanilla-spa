@@ -1,6 +1,9 @@
 #root {
+  font-family: 'Inter';
   min-width: 360px;
   width: 100%;
   max-width: 640px;
+  height: 100vh;
   margin: 0 auto;
+  position: relative;
 }
