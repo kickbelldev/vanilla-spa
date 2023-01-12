@@ -1,4 +1,4 @@
-import { PostListType } from './Post'
+import { CommentType, PostListType, PostType } from './Post'
 
 export interface Response<T> {
   code: number
@@ -7,4 +7,9 @@ export interface Response<T> {
 
 export interface PostListRes {
   posts: PostListType
+}
+
+export interface PostRes {
+  post: PostType
+  comments: CommentType[]
 }

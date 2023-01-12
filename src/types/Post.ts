@@ -8,3 +8,11 @@ export interface PostType {
 }
 
 export type PostListType = PostType[]
+
+export interface CommentType {
+  commentId: string
+  postId: string
+  content: string
+}
+
+export type CommentListType = CommentType[]
