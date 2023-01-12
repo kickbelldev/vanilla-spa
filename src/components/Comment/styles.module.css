@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 16px 0;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.content {
+  margin: 9px 12px;
+  flex-grow: 1;
+}
+
+button.delete {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e2e2;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+i.delete {
+  width: 9px;
+  height: 9px;
+  background: url('/img/delete.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

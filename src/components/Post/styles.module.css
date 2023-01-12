@@ -1,7 +1,14 @@
 .container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 h1.title {
   color: darkblue;
+}
+
+.commentContainer {
+  background: white;
+  display: flex;
 }

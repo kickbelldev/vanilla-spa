@@ -13,10 +13,9 @@ class PostPage extends Component<StateType, PropsType> {
 
   template(): string {
     return `
-    <div>
       <header></header>
       <div class="post"></div>
-    </div>`
+    `
   }
 }
 

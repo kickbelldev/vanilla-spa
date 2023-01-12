@@ -13,3 +13,9 @@ export interface PostRes {
   post: PostType
   comments: CommentType[]
 }
+
+export interface AddCommentRes {
+  commentId: string
+  postId: string
+  content: string
+}

@@ -1,10 +1,11 @@
 import Component, { PropsType, StateType } from '../../Component'
-import { CommentListType, PostType } from '../../types/Post'
+import { CommentListType, CommentType, PostType } from '../../types/Post'
 import styles from './styles.module.css'
 import commonStyles from '../../styles/commonStyles.module.css'
 import fetch from '../../utils/fetch'
 import { PostRes, Response } from '../../types/Response'
 import { AxiosError } from 'axios'
+import CommentSection from '../CommentSection'
 
 interface PostStateType extends StateType {
   post?: PostType
@@ -37,12 +38,27 @@ class Post extends Component<PostStateType, PostPropsType> {
       })
   }
 
+  didUpdate(): void {
+    const $comment = this.target.querySelector(`.${styles.commentContainer}`)!
+    if (!this.state.post) {
+      return
+    }
+    if (this.state.comments) {
+      new CommentSection($comment, {
+        comments: this.state.comments,
+        postId: this.state.post.postId,
+        deleteCommentCallback: this.deleteCommentCallback,
+        addCommentCallback: this.addCommentCallback,
+      })
+    }
+  }
+
   template(): string {
     if (this.state.loading) {
-      return `<div class=${commonStyles.loading}>loading..</div>`
+      return ``
     }
     if (!this.state.post) {
-      return `<div class=${commonStyles.notFound}>not found post</div>`
+      return `<div class=${commonStyles.notFound}>포스트를 찾을 수 없습니다.</div>`
     }
     return `
     <div class=${styles.container}>
@@ -51,6 +67,31 @@ class Post extends Component<PostStateType, PostPropsType> {
     </div>
     <div class=${styles.commentContainer}></div>
     `
+  }
+
+  deleteCommentCallback = (commentId: string): void => {
+    if (!this.state.comments) {
+      return
+    }
+
+    const newComments = this.state.comments.filter((comment) => commentId !== comment.commentId)
+    this.setState({ comments: newComments })
+  }
+
+  addCommentCallback = (content: string, commentId: string) => {
+    if (!this.state.comments) {
+      return
+    }
+
+    const newComment: CommentType = {
+      commentId,
+      postId: this.props.id,
+      content,
+    }
+
+    const newComments = [...this.state.comments, newComment]
+
+    this.setState({ comments: newComments })
   }
 }
 

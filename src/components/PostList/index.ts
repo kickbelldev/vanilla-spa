@@ -14,7 +14,7 @@ class PostList extends Component<PostState, PostListPropsType> {
     const $list: Element = this.target.querySelector('ul')!
     this.props.list.forEach((post) => {
       const $post = $list.appendChild(document.createElement('li'))
-      $post.setAttribute('class', 'item')
+      $post.setAttribute('class', styles.item)
       new PostListItem($post, { post })
     })
   }
