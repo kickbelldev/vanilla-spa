@@ -5,6 +5,7 @@ class Header extends Component<StateType, PropsType> {
     return `
     <div>
       <a href="/" data-link>home</a>
+      <a href="/post" data-link>post</a>
       <a href="/post/1" data-link>post/1</a>
       <a href="/post/2" data-link>post/2</a>
       <a href="/post/3" data-link>post/3</a>
