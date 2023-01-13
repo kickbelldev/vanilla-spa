@@ -5,6 +5,7 @@ import PostList from '../../components/PostList'
 import { PostListType } from '../../types/Post'
 import { PostListRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
+import handleAPIError from '../../utils/handleAPIError'
 import styles from './styles.module.css'
 
 interface PostListStateType {
@@ -22,9 +23,7 @@ class Home extends Component<PostListStateType, PropsType> {
         this.setState({ list: res.data.posts })
       })
       .catch((err: AxiosError) => {
-        if (err.response) {
-          window.alert(`로딩에 실패했습니다. 에러코드: ${err.response.status}`)
-        }
+        handleAPIError(err)
       })
   }
 

@@ -3,6 +3,8 @@ import Component, { PropsType, StateType } from '../../Component'
 import { CommentType } from '../../types/Post'
 import { Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
+import handleAPIError from '../../utils/handleAPIError'
+import blockXss from '../../utils/blockXss'
 import styles from './styles.module.css'
 
 interface CommentPropsType extends PropsType {
@@ -18,7 +20,7 @@ class Comment extends Component<StateType, CommentPropsType> {
     return `
     <div class=${styles.container}>
       <div class=${styles.content}>
-        ${this.props.comment.content}
+        ${blockXss(this.props.comment.content)}
       </div>
       <button class=${styles.delete}>
       <i class=${styles.delete}></i>
@@ -41,9 +43,7 @@ class Comment extends Component<StateType, CommentPropsType> {
           this.props.deleteCommentCallback(this.props.comment.commentId)
         })
         .catch((err: AxiosError) => {
-          if (err.response) {
-            window.alert(`로딩에 실패했습니다. 에러코드: ${err.response.status}`)
-          }
+          handleAPIError(err)
         })
     })
   }

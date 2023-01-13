@@ -2,6 +2,7 @@ import { AxiosError } from 'axios'
 import Component, { PropsType, StateType } from '../../Component'
 import { AddCommentRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
+import handleAPIError from '../../utils/handleAPIError'
 import styles from './styles.module.css'
 
 interface CommentPropsType extends PropsType {
@@ -41,9 +42,7 @@ class CommentInput extends Component<StateType, CommentPropsType> {
           }
         })
         .catch((err: AxiosError) => {
-          if (err.response) {
-            window.alert(`로딩에 실패했습니다. 에러코드: ${err.response.status}`)
-          }
+          handleAPIError(err)
         })
     })
   }

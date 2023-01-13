@@ -8,6 +8,8 @@ import fetch from '../../utils/fetch'
 import { PostRes, Response } from '../../types/Response'
 import CommentSection from '../CommentSection'
 import navigateTo from '../../utils/navigateTo'
+import blockXss from '../../utils/blockXss'
+import handleAPIError from '../../utils/handleAPIError'
 
 interface PostStateType extends StateType {
   post?: PostType
@@ -32,13 +34,15 @@ class Post extends Component<PostStateType, PostPropsType> {
     fetch
       .get<Response<PostRes>>(`/post/${this.props.id}`)
       .then(({ data: res }) => {
+        if (!res.success) {
+          this.setState({ loading: false, post: undefined, comments: undefined })
+          return
+        }
         this.setState({ ...res.data, loading: false })
       })
       .catch((err: AxiosError) => {
-        if (err.response) {
-          window.alert(`로딩에 실패했습니다. 에러코드: ${err.response.status}`)
-          this.setState({ loading: false, post: undefined, comments: undefined })
-        }
+        handleAPIError(err)
+        this.setState({ loading: false, post: undefined, comments: undefined })
       })
   }
 
@@ -71,9 +75,15 @@ class Post extends Component<PostStateType, PostPropsType> {
         <img src=${post.image}>
       </div>
       <div class=${styles.content}>
-        <h1 class=${styles.title}>${post.title}</h1>
-        <div class=${styles.datetime}>${dayjs(post.createdAt).format('YYYY. MM. DD')}</div>
-        <div class=${styles.body}>${post.content}</div>
+        <h1 class=${styles.title}>${blockXss(post.title)}</h1>
+        <div class=${styles.datetime}>
+          ${
+            dayjs(post.createdAt).isValid()
+              ? dayjs(post.createdAt).format('YYYY. MM. DD')
+              : 'YYYY. MM. DD'
+          }
+        </div>
+        <div class=${styles.body}>${blockXss(post.content)}</div>
       </div>
       <div class=${styles.buttonContainer}>
         <a href="/edit/${this.state.post.postId}" data-link>
