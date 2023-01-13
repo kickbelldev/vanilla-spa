@@ -1,9 +1,10 @@
 import _ from 'lodash'
-import Component from './Component'
+import Component, { PropsType } from './Component'
 import Home from './pages/Home'
 import pathToRegex from './utils/pathToRegex'
 import Post from './pages/Post'
 import Write from './pages/Write'
+import Page from './Page'
 
 interface Route {
   path: string
@@ -32,7 +33,10 @@ const router = () => {
 
   if (match) {
     match.resolved?.shift()
-    new match.view($root, { pageParams: _.toArray(match.resolved) })
+
+    const props: PropsType = { pageParams: _.toArray(match.resolved) }
+
+    new Page($root, props, match.view)
     return
   }
 

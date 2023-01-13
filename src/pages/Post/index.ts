@@ -16,21 +16,19 @@ interface PostStateType extends StateType {
   loading: boolean
 }
 
-interface PostPropsType extends PropsType {
-  id: string
-}
-
-class Post extends Component<PostStateType, PostPropsType> {
+class Post extends Component<PostStateType, PropsType> {
   setup(): void {
     this.state = { loading: true }
   }
 
   didMount(): void {
-    if (!this.props.id) {
+    if (!this.props.pageParams) {
       this.setState({ loading: false, post: undefined, comments: undefined })
       return
     }
-    this.getPost()
+    const postId = this.props.pageParams[0]
+
+    this.getPost(postId)
   }
 
   didUpdate(): void {
@@ -78,9 +76,9 @@ class Post extends Component<PostStateType, PostPropsType> {
     })
   }
 
-  getPost(): void {
+  getPost(postId: string): void {
     fetch
-      .get<Response<PostRes>>(`/post/${this.props.id}`)
+      .get<Response<PostRes>>(`/post/${postId}`)
       .then(({ data: res }) => {
         if (!res.success) {
           this.setState({ loading: false, post: undefined, comments: undefined })
