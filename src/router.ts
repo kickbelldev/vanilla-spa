@@ -5,6 +5,7 @@ import pathToRegex from './utils/pathToRegex'
 import Post from './pages/Post'
 import Write from './pages/Write'
 import Page from './Page'
+import NotFound from './components/NotFound'
 
 interface Route {
   path: string
@@ -20,8 +21,6 @@ const routes: Route[] = [
 ]
 
 const router = () => {
-  const $root = document.querySelector('#root')!
-
   const { pathname } = location
 
   const resolvedRoutes: Route[] = routes.map((route) => ({
@@ -31,16 +30,18 @@ const router = () => {
 
   const match = resolvedRoutes.find((route) => route.resolved)
 
-  if (match) {
-    match.resolved?.shift()
+  const $root = document.querySelector('#root')!
 
-    const props: PropsType = { pageParams: _.toArray(match.resolved) }
-
-    new Page($root, props, match.view)
+  if (!match) {
+    new Page($root, {}, NotFound as typeof Component)
     return
   }
 
-  document.querySelector('#root')!.innerHTML = '<h1>404 Not Found</h1>'
+  match.resolved?.shift()
+
+  const props: PropsType = { pageParams: _.toArray(match.resolved) }
+
+  new Page($root, props, match.view)
 }
 
 export default router
