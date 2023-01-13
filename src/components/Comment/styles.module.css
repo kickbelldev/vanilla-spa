@@ -9,6 +9,7 @@
 
 .content {
   margin: 9px 12px;
+  margin-left: 0;
   word-break: break-all;
   flex-grow: 1;
 }
