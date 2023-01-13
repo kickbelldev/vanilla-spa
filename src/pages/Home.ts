@@ -1,7 +1,7 @@
-import Component, { PropsType } from '../../Component'
-import Header from '../../components/Header'
-import HomeComponent from '../../components/Home'
-import { PostListType } from '../../types/Post'
+import Component, { PropsType } from '../Component'
+import Header from '../components/Header'
+import HomeComponent from '../components/Home'
+import { PostListType } from '../types/Post'
 
 interface PostListStateType {
   list: PostListType
