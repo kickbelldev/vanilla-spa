@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  window.addEventListener('popstate', (e) => {
+  window.addEventListener('popstate', () => {
     router()
   })
 

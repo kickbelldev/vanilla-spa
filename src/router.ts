@@ -34,7 +34,7 @@ const router = () => {
 
   if (match) {
     match.resolved?.shift()
-    const view = new match.view($root, { pageParams: _.toArray(match.resolved) })
+    new match.view($root, { pageParams: _.toArray(match.resolved) })
     return
   }
 
