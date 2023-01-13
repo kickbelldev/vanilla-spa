@@ -1,13 +1,11 @@
 .container {
   display: flex;
   gap: 8px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   height: 68px;
   padding: 16px;
   background: #fff;
+  border-top: 1px solid #e0e0e0;
 }
 
 input.default {

@@ -2,7 +2,7 @@ export interface PostType {
   postId: string
   title: string
   content: string
-  img: string
+  image: string
   createdAt: string
   updatedAt: string
 }

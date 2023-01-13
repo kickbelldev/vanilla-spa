@@ -29,7 +29,7 @@ button.delete {
 i.delete {
   width: 9px;
   height: 9px;
-  background: url('/img/delete.svg');
+  background: url('/img/delete_comment.svg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;

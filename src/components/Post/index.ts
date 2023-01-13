@@ -1,11 +1,13 @@
+import { AxiosError } from 'axios'
+import dayjs from 'dayjs'
 import Component, { PropsType, StateType } from '../../Component'
 import { CommentListType, CommentType, PostType } from '../../types/Post'
 import styles from './styles.module.css'
 import commonStyles from '../../styles/commonStyles.module.css'
 import fetch from '../../utils/fetch'
 import { PostRes, Response } from '../../types/Response'
-import { AxiosError } from 'axios'
 import CommentSection from '../CommentSection'
+import navigateTo from '../../utils/navigateTo'
 
 interface PostStateType extends StateType {
   post?: PostType
@@ -24,6 +26,7 @@ class Post extends Component<PostStateType, PostPropsType> {
 
   didMount(): void {
     if (!this.props.id) {
+      this.setState({ loading: false, post: undefined, comments: undefined })
       return
     }
     fetch
@@ -34,6 +37,7 @@ class Post extends Component<PostStateType, PostPropsType> {
       .catch((err: AxiosError) => {
         if (err.response) {
           window.alert(`로딩에 실패했습니다. 에러코드: ${err.response.status}`)
+          this.setState({ loading: false, post: undefined, comments: undefined })
         }
       })
   }
@@ -60,10 +64,23 @@ class Post extends Component<PostStateType, PostPropsType> {
     if (!this.state.post) {
       return `<div class=${commonStyles.notFound}>포스트를 찾을 수 없습니다.</div>`
     }
+    const { post } = this.state
     return `
     <div class=${styles.container}>
-      <div class=${styles.title}>${this.state.post.title}</div>
-      <div class=${styles.body}>${this.state.post.content}</div>
+      <div class=${styles.imgWrapper}>
+        <img src=${post.image}>
+      </div>
+      <div class=${styles.content}>
+        <h1 class=${styles.title}>${post.title}</h1>
+        <div class=${styles.datetime}>${dayjs(post.createdAt).format('YYYY. MM. DD')}</div>
+        <div class=${styles.body}>${post.content}</div>
+      </div>
+      <div class=${styles.buttonContainer}>
+        <a href="/edit/${this.state.post.postId}" data-link>
+          <button class=${styles.edit}><i></i></button>
+        </a>
+        <button class=${styles.delete}><i></i></button>
+      </div>
     </div>
     <div class=${styles.commentContainer}></div>
     `
@@ -92,6 +109,24 @@ class Post extends Component<PostStateType, PostPropsType> {
     const newComments = [...this.state.comments, newComment]
 
     this.setState({ comments: newComments })
+  }
+
+  setEvent(): void {
+    this.addEvent('click', `.${styles.buttonContainer} .${styles.delete}`, () => {
+      if (!this.state.post) {
+        return
+      }
+      if (window.confirm('삭제하시겠습니까?')) {
+        fetch.delete<Response<unknown>>(`/post/${this.state.post.postId}`).then(({ data: res }) => {
+          if (res.code !== 200) {
+            window.alert('게시글 삭제 실패')
+            return
+          }
+          navigateTo('/')
+          window.alert('게시글 삭제 성공')
+        })
+      }
+    })
   }
 }
 
