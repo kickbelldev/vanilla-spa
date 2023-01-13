@@ -1,0 +1,26 @@
+.buttonWrapper {
+  margin: 16px;
+  display: block;
+}
+
+.buttonWrapper button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 64px;
+  background: #bb2649;
+  border-radius: 12px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.buttonWrapper button i {
+  width: 24px;
+  height: 24px;
+  background: url('/img/add_post.svg');
+}
