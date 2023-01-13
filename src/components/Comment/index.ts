@@ -40,6 +40,7 @@ class Comment extends Component<StateType, CommentPropsType> {
           if (!this.props.comment) {
             return
           }
+          window.alert('댓글이 삭제되었습니다.')
           this.props.deleteCommentCallback(this.props.comment.commentId)
         })
         .catch((err: AxiosError) => {
