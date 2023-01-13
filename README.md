@@ -2,7 +2,7 @@
 
 넘블 챌린지 `네카라쿠배 개발자와 함께 VanillaJS 활용하기`를 진행하며 만든 저장소입니다.
 
-[배포 URL](https://bit.ly/3XgShiI)
+[배포 URL](https://hpny2023.netlify.app/)
 
 ## 사용 스택
 
