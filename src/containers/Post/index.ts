@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 import commonStyles from '../../styles/commonStyles.module.css'
 import fetch from '../../utils/fetch'
 import { PostRes, Response } from '../../types/Response'
-import CommentSection from '../CommentSection'
+import CommentSection from '../../components/CommentSection'
 import navigateTo from '../../utils/navigateTo'
 import blockXss from '../../utils/blockXss'
 import handleAPIError from '../../utils/handleAPIError'
@@ -31,19 +31,7 @@ class Post extends Component<PostStateType, PostPropsType> {
       this.setState({ loading: false, post: undefined, comments: undefined })
       return
     }
-    fetch
-      .get<Response<PostRes>>(`/post/${this.props.id}`)
-      .then(({ data: res }) => {
-        if (!res.success) {
-          this.setState({ loading: false, post: undefined, comments: undefined })
-          return
-        }
-        this.setState({ ...res.data, loading: false })
-      })
-      .catch((err: AxiosError) => {
-        handleAPIError(err)
-        this.setState({ loading: false, post: undefined, comments: undefined })
-      })
+    this.getPost()
   }
 
   didUpdate(): void {
@@ -94,6 +82,22 @@ class Post extends Component<PostStateType, PostPropsType> {
     </div>
     <div class=${styles.commentContainer}></div>
     `
+  }
+
+  getPost() {
+    fetch
+      .get<Response<PostRes>>(`/post/${this.props.id}`)
+      .then(({ data: res }) => {
+        if (!res.success) {
+          this.setState({ loading: false, post: undefined, comments: undefined })
+          return
+        }
+        this.setState({ ...res.data, loading: false })
+      })
+      .catch((err: AxiosError) => {
+        handleAPIError(err)
+        this.setState({ loading: false, post: undefined, comments: undefined })
+      })
   }
 
   deleteCommentCallback = (commentId: string): void => {

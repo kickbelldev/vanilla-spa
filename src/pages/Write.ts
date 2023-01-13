@@ -1,6 +1,6 @@
 import Component, { PropsType, StateType } from '../Component'
 import Header from '../components/Header'
-import WriteComponent from '../components/Write'
+import WriteComponent from '../containers/Write'
 
 class Write extends Component<StateType, PropsType> {
   didMount(): void {

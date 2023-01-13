@@ -1,6 +1,6 @@
 import Component, { PropsType, StateType } from '../Component'
 import Header from '../components/Header'
-import PostComponent from '../components/Post'
+import PostComponent from '../containers/Post'
 
 class Post extends Component<StateType, PropsType> {
   didMount(): void {
