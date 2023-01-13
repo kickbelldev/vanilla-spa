@@ -136,13 +136,15 @@ class Post extends Component<PostStateType, PropsType> {
   }
 
   addCommentCallback = (content: string, commentId: string): void => {
-    if (!this.state.comments) {
+    if (!this.state.comments || !this.props.pageParams) {
       return
     }
 
+    const postId = this.props.pageParams[0]
+
     const newComment: CommentType = {
       commentId,
-      postId: this.props.id,
+      postId,
       content,
     }
 
