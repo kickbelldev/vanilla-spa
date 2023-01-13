@@ -3,7 +3,8 @@ import Component from './Component'
 import Test from './pages/Test'
 import Home from './pages/Home'
 import pathToRegex from './utils/pathToRegex'
-import PostPage from './pages/Post'
+import Post from './pages/Post'
+import Write from './pages/Write'
 
 interface Route {
   path: string
@@ -13,7 +14,9 @@ interface Route {
 
 const routes: Route[] = [
   { path: '/', view: Home as typeof Component },
-  { path: '/post/:id', view: PostPage as typeof Component },
+  { path: '/post/:id', view: Post as typeof Component },
+  { path: '/edit/:id', view: Write as typeof Component },
+  { path: '/write', view: Write as typeof Component },
   { path: '/test', view: Test as typeof Component },
 ]
 

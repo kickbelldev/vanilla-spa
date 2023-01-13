@@ -1,10 +1,11 @@
 import { AxiosError } from 'axios'
-import Component, { PropsType } from '../Component'
-import Header from '../components/Header'
-import PostList from '../components/PostList'
-import { PostListType } from '../types/Post'
-import { PostListRes, Response } from '../types/Response'
-import fetch from '../utils/fetch'
+import Component, { PropsType } from '../../Component'
+import Header from '../../components/Header'
+import PostList from '../../components/PostList'
+import { PostListType } from '../../types/Post'
+import { PostListRes, Response } from '../../types/Response'
+import fetch from '../../utils/fetch'
+import styles from './styles.module.css'
 
 interface PostListStateType {
   list: PostListType
@@ -38,7 +39,12 @@ class Home extends Component<PostListStateType, PropsType> {
   template(): string {
     return `
       <header></header>
-      <div class="post-list"></div>
+      <div>
+        <a href="/write" class=${styles.buttonWrapper} data-link>
+          <button><i></i>새 글 작성하기</button>
+        </a>
+        <div class="post-list"></div>
+      </div>
     `
   }
 }

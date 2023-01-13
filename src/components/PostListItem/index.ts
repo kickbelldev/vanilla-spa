@@ -12,10 +12,15 @@ class PostListItem extends Component<PostState, PostProps> {
   template(): string {
     return `
     <a href="/post/${this.props.post.postId}" data-link>
-      <dl class=${styles.item}>
-        <dt class=${styles.title}>${this.props.post.title}</dt>
-        <dd class=${styles.body}>${this.props.post.content}</dd>
-      </dl>
+      <div class=${styles.item}>
+        <figure>
+          <img src=${this.props.post.image} alt="썸네일">
+        </figure>
+        <div class=${styles.content}>
+        <div class=${styles.title}>${this.props.post.title}</div>
+        <div class=${styles.body}>${this.props.post.content}</div>
+        </div>
+      </div>
     </a>
     `
   }

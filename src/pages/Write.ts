@@ -2,13 +2,10 @@ import Component, { PropsType, StateType } from '../Component'
 import Header from '../components/Header'
 import PostComponent from '../components/Post'
 
-class Post extends Component<StateType, PropsType> {
+class Write extends Component<StateType, PropsType> {
   didMount(): void {
     const $header: Element = this.target.querySelector('header')!
     new Header($header, {})
-
-    const $post: Element = this.target.querySelector('.post')!
-    new PostComponent($post, { id: this.props.pageParams![0] })
   }
 
   template(): string {
@@ -19,4 +16,4 @@ class Post extends Component<StateType, PropsType> {
   }
 }
 
-export default Post
+export default Write
