@@ -24,12 +24,12 @@ const router = () => {
 
   const { pathname } = location
 
-  const dynamicRoutes: Route[] = routes.map((route) => ({
+  const resolvedRoutes: Route[] = routes.map((route) => ({
     ...route,
     resolved: pathname.match(pathToRegex(route.path)),
   }))
 
-  const match = dynamicRoutes.find((route) => route.resolved)
+  const match = resolvedRoutes.find((route) => route.resolved)
 
   if (match) {
     match.resolved?.shift()
