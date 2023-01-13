@@ -11,17 +11,21 @@ interface PostListPropsType extends PropsType {
 
 class PostList extends Component<PostState, PostListPropsType> {
   didMount(): void {
-    const $list: Element = this.target.querySelector('ul')!
-    this.props.list.forEach((post) => {
-      const $post = $list.appendChild(document.createElement('li'))
-      new PostListItem($post, { post })
-    })
+    this.renderList()
   }
 
   template(): string {
     return `
     <ul class=${styles.list}></ul>
     `
+  }
+
+  renderList(): void {
+    const $list: Element = this.target.querySelector('ul')!
+    this.props.list.forEach((post) => {
+      const $post = $list.appendChild(document.createElement('li'))
+      new PostListItem($post, { post })
+    })
   }
 }
 

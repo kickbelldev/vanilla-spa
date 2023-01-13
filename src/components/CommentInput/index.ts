@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import Component, { PropsType, StateType } from '../../Component'
 import { AddCommentRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
@@ -49,9 +48,7 @@ class CommentInput extends Component<StateType, CommentPropsType> {
         }
         window.alert(`요청을 실패했습니다.`)
       })
-      .catch((err: AxiosError) => {
-        handleAPIError(err)
-      })
+      .catch(handleAPIError)
   }
 }
 

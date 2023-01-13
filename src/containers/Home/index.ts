@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import Component, { PropsType } from '../../Component'
 import PostList from '../../components/PostList'
 import { PostListType } from '../../types/Post'
@@ -13,14 +12,7 @@ interface HomeStateType {
 
 class Home extends Component<HomeStateType, PropsType> {
   didMount(): void {
-    fetch
-      .get<Response<PostListRes>>('/posts')
-      .then(({ data: res }) => {
-        this.setState({ list: res.data.posts })
-      })
-      .catch((err: AxiosError) => {
-        handleAPIError(err)
-      })
+    this.getPostList()
   }
 
   didUpdate(): void {
@@ -35,6 +27,15 @@ class Home extends Component<HomeStateType, PropsType> {
       </a>
       <div class="post-list"></div>
     `
+  }
+
+  getPostList(): void {
+    fetch
+      .get<Response<PostListRes>>('/posts')
+      .then(({ data: res }) => {
+        this.setState({ list: res.data.posts })
+      })
+      .catch(handleAPIError)
   }
 }
 

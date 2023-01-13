@@ -13,29 +13,8 @@ interface CommentSectionPropsType extends PropsType {
 
 class CommentSection extends Component<StateType, CommentSectionPropsType> {
   didMount(): void {
-    const $list: Element = this.target.querySelector(`ul.${styles.commentList}`)!
-    this.props.comments.forEach((comment) => {
-      const $comment = $list.appendChild(document.createElement('li'))
-      new Comment($comment, {
-        comment,
-        deleteCommentCallback: this.props.deleteCommentCallback,
-      })
-    })
-
-    const $input: Element = this.target.querySelector(`.${styles.commentInput}`)!
-    new CommentInput($input, {
-      postId: this.props.postId,
-      addCommentCallback: this.props.addCommentCallback,
-    })
-  }
-
-  didUpdate(): void {
-    const $list: Element = this.target.querySelector(`ul.${styles.commentList}`)!
-    this.props.comments.forEach((comment) => {
-      const $comment = $list.appendChild(document.createElement('li'))
-      $comment.setAttribute('class', styles.item)
-      new Comment($comment, { comment, deleteCommentCallback: this.props.deleteCommentCallback })
-    })
+    this.renderList()
+    this.renderInput()
   }
 
   template(): string {
@@ -47,6 +26,25 @@ class CommentSection extends Component<StateType, CommentSectionPropsType> {
       </div>
     </div>
     `
+  }
+
+  renderList(): void {
+    const $list: Element = this.target.querySelector(`ul.${styles.commentList}`)!
+    this.props.comments.forEach((comment) => {
+      const $comment = $list.appendChild(document.createElement('li'))
+      new Comment($comment, {
+        comment,
+        deleteCommentCallback: this.props.deleteCommentCallback,
+      })
+    })
+  }
+
+  renderInput(): void {
+    const $input: Element = this.target.querySelector(`.${styles.commentInput}`)!
+    new CommentInput($input, {
+      postId: this.props.postId,
+      addCommentCallback: this.props.addCommentCallback,
+    })
   }
 }
 

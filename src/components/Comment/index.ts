@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import Component, { PropsType, StateType } from '../../Component'
 import { CommentType } from '../../types/Post'
 import { Response } from '../../types/Response'
@@ -8,15 +7,12 @@ import blockXss from '../../utils/blockXss'
 import styles from './styles.module.css'
 
 interface CommentPropsType extends PropsType {
-  comment?: CommentType
+  comment: CommentType
   deleteCommentCallback: (commentId: string) => void
 }
 
 class Comment extends Component<StateType, CommentPropsType> {
   template(): string {
-    if (!this.props.comment) {
-      return ``
-    }
     return `
     <div class=${styles.container}>
       <div class=${styles.content}>
@@ -30,23 +26,14 @@ class Comment extends Component<StateType, CommentPropsType> {
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${styles.delete}`, () => {
-      if (!this.props.comment) {
-        return
-      }
-      fetch
-        .delete<Response<unknown>>(`/comment/${this.props.comment.commentId}`)
-        .then(() => {
-          if (!this.props.comment) {
-            return
-          }
-          window.alert('댓글이 삭제되었습니다.')
-          this.props.deleteCommentCallback(this.props.comment.commentId)
-        })
-        .catch((err: AxiosError) => {
-          handleAPIError(err)
-        })
-    })
+    this.addEvent('click', `button.${styles.delete}`, this.deleteComment)
+  }
+
+  deleteComment(): void {
+    fetch
+      .delete<Response<unknown>>(`/comment/${this.props.comment.commentId}`)
+      .then(() => this.props.deleteCommentCallback(this.props.comment.commentId))
+      .catch(handleAPIError)
   }
 }
 

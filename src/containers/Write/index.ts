@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios'
 import Component, { PropsType, StateType } from '../../Component'
 import { PostRes, Response, AddPostRes, UnsplashRes } from '../../types/Response'
 import fetch from '../../utils/fetch'
@@ -20,22 +19,7 @@ interface WriteFormElement extends HTMLFormElement {
 
 class Write extends Component<StateType, WritePropsType> {
   didMount(): void {
-    if (this.props.postId) {
-      const { postId } = this.props
-      fetch
-        .get<Response<PostRes>>(`/post/${postId}`)
-        .then(({ data: res }) => {
-          if (!res.success) {
-            window.alert(`요청을 실패했습니다.`)
-            return
-          }
-          const { post } = res.data
-          this.handleGetPost(post)
-        })
-        .catch((err: AxiosError) => {
-          handleAPIError(err)
-        })
-    }
+    this.getPost()
   }
 
   template(): string {
@@ -82,7 +66,24 @@ class Write extends Component<StateType, WritePropsType> {
     })
   }
 
-  handleGetPost(post: PostType) {
+  getPost(): void {
+    if (this.props.postId) {
+      const { postId } = this.props
+      fetch
+        .get<Response<PostRes>>(`/post/${postId}`)
+        .then(({ data: res }) => {
+          if (!res.success) {
+            window.alert(`요청을 실패했습니다.`)
+            return
+          }
+          const { post } = res.data
+          this.renderPost(post)
+        })
+        .catch(handleAPIError)
+    }
+  }
+
+  renderPost(post: PostType): void {
     const $title = this.target.querySelector(`input.${styles.title}`) as HTMLInputElement
     $title.value = blockXss(post.title)
 
@@ -94,7 +95,7 @@ class Write extends Component<StateType, WritePropsType> {
     $image.value = $thumb.src = blockXss(post.image)
   }
 
-  getImage($button: HTMLButtonElement) {
+  getImage($button: HTMLButtonElement): void {
     const url = `https://api.unsplash.com/photos/random`
     fetch
       .get<UnsplashRes>(url, {
@@ -105,33 +106,51 @@ class Write extends Component<StateType, WritePropsType> {
       .then(({ data }) => {
         const imageUrl = data.urls.regular
 
-        const imageInput = $button.querySelector('input[name="imageInput"]') as HTMLInputElement
-        const thumb = $button.querySelector(`img.${styles.thumb}`) as HTMLImageElement
-        imageInput.value = thumb.src = imageUrl
+        this.setImageData($button, imageUrl)
       })
+      .catch(handleAPIError)
   }
 
-  handlePost(e: Event) {
+  setImageData($button: HTMLButtonElement, imageUrl: string): void {
+    const imageInput = $button.querySelector('input[name="imageInput"]') as HTMLInputElement
+    const thumb = $button.querySelector(`img.${styles.thumb}`) as HTMLImageElement
+    imageInput.value = thumb.src = imageUrl
+  }
+
+  isValid(title: string, content: string, image: string): boolean {
+    if (!title) {
+      window.alert('제목을 입력해주세요.')
+      return false
+    }
+    if (!content) {
+      window.alert('내용을 입력해주세요.')
+      return false
+    }
+    if (!image) {
+      window.alert('이미지를 가져와주세요.')
+      return false
+    }
+
+    return true
+  }
+
+  handlePost(e: Event): void {
     const { titleInput, contentInput, imageInput } = e.target as WriteFormElement
 
-    if (!titleInput.value) {
-      window.alert('제목을 입력해주세요.')
-      return
-    }
-    if (!contentInput.value) {
-      window.alert('내용을 입력해주세요.')
-      return
-    }
-    if (!imageInput.value) {
-      window.alert('이미지를 가져와주세요.')
+    const title = titleInput.value
+    const content = contentInput.value
+    const image = imageInput.value
+
+    if (!this.isValid(title, content, image)) {
       return
     }
 
     if (this.props.postId) {
-      this.editPost(titleInput.value, contentInput.value, imageInput.value)
+      this.editPost(title, content, image)
       return
     }
-    this.addPost(titleInput.value, contentInput.value, imageInput.value)
+
+    this.addPost(title, content, image)
   }
 
   editPost(title: string, content: string, image: string): void {
@@ -150,6 +169,7 @@ class Write extends Component<StateType, WritePropsType> {
         navigateTo(`/post/${postId}`)
         window.alert('수정을 성공했습니다.')
       })
+      .catch(handleAPIError)
   }
 
   addPost(title: string, content: string, image: string): void {
@@ -167,6 +187,7 @@ class Write extends Component<StateType, WritePropsType> {
         navigateTo(`/post/${res.data.postId}`)
         window.alert('작성을 성공했습니다.')
       })
+      .catch(handleAPIError)
   }
 }
 
