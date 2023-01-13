@@ -1,9 +1,36 @@
 .container {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
   height: 64px;
-  top: 0;
-  left: 0;
   position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 640px;
   background: #fff;
   border-bottom: 1px solid #e0e0e0;
+  padding: 0 16px;
+}
+
+h2.default {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+button.back {
+  width: 54px;
+  height: 54px;
+  background: none;
+  display: flex;
+  align-items: center;
+}
+
+button.back i {
+  width: 16px;
+  height: 33px;
+  background: url('/img/back.svg');
+  background-position: center;
+  background-size: contain;
 }

@@ -5,8 +5,12 @@ class Header extends Component<StateType, PropsType> {
   template(): string {
     return `
     <div class=${styles.container}>
-      <a href="/" data-link>home</a>
-      <a href="/test" data-link>test</a>
+      ${
+        location.pathname !== '/'
+          ? `<a href="/" data-link><button class=${styles.back}><i></i></button></a>`
+          : '<div></div>'
+      }
+      <a href="/" data-link><h2 class=${styles.default}>HPNY 2023</h2></a>
     </div>`
   }
 }
