@@ -15,36 +15,43 @@ class CommentInput extends Component<StateType, CommentPropsType> {
 
   template(): string {
     return `
-    <div class=${styles.container}>
+    <form class=${styles.container}>
       <input class=${styles.default}>
       <button class=${styles.add}>
       <i class=${styles.add}></i>
       </button>
-    </div>
+    </form>
     `
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${styles.add}`, () => {
+    this.addEvent('click', `button.${styles.add}`, (e) => {
+      e.preventDefault()
+
       const inputValue = (this.target.querySelector(`input.${styles.default}`) as HTMLInputElement)
         .value
       if (!inputValue) {
+        window.alert('메시지를 입력해주세요.')
         return
       }
-      fetch
-        .post<Response<AddCommentRes>>(`/comment/${this.props.postId}`, { content: inputValue })
-        .then(({ data: res }) => {
-          if (res.code < 400) {
-            this.props.addCommentCallback(res.data.content, '' + res.data.commentId)
-          }
-          if (res.code === 400) {
-            window.alert(`로딩에 실패했습니다. 에러코드: 400`)
-          }
-        })
-        .catch((err: AxiosError) => {
-          handleAPIError(err)
-        })
+
+      this.addComment(inputValue)
     })
+  }
+
+  addComment(content: string) {
+    fetch
+      .post<Response<AddCommentRes>>(`/comment/${this.props.postId}`, { content })
+      .then(({ data: res }) => {
+        if (res.code! < 400) {
+          this.props.addCommentCallback(res.data.content, '' + res.data.commentId)
+          return
+        }
+        window.alert(`요청을 실패했습니다.`)
+      })
+      .catch((err: AxiosError) => {
+        handleAPIError(err)
+      })
   }
 }
 
