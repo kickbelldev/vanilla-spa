@@ -13,8 +13,8 @@ class Post extends Component<StateType, PropsType> {
 
   template(): string {
     return `
-      <header></header>
       <div class="post"></div>
+      <header></header>
     `
   }
 }

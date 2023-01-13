@@ -13,8 +13,8 @@ class Write extends Component<StateType, PropsType> {
 
   template(): string {
     return `
-      <header></header>
       <div class="write"></div>
+      <header></header>
     `
   }
 }

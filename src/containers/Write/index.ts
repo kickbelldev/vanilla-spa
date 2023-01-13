@@ -57,9 +57,11 @@ class Write extends Component<StateType, WritePropsType> {
             <label for="contentInput" class=${styles.default}>내용</label>
             <textarea name="contentInput" class=${styles.default}></textarea>
           </div>
+          <div class=${styles.buttonWrapper}>
           <button type="submit" class=${styles.submit}>
             ${this.props.postId ? '수정하기' : '등록하기'}
           </button>
+          </div>
         </form>
       </div>
     `

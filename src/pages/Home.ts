@@ -26,8 +26,8 @@ class Home extends Component<PostListStateType, PropsType> {
 
   template(): string {
     return `
-      <header></header>
       <div class="home"></div>
+      <header></header>
     `
   }
 }
