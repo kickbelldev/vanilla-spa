@@ -67,8 +67,8 @@ class Write extends Component<StateType, WritePropsType> {
   }
 
   getPost(): void {
-    if (this.props.postId) {
-      const { postId } = this.props
+    if (this.props.pageParams) {
+      const postId = this.props.pageParams[0]
       fetch
         .get<Response<PostRes>>(`/post/${postId}`)
         .then(({ data: res }) => {
