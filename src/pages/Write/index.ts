@@ -23,6 +23,8 @@ class Write extends Component<StateType, WritePropsType> {
   }
 
   template(): string {
+    const postId = this.props.pageParams?.[0]
+
     return `
       <div class=${styles.container}>
         <form>
@@ -43,7 +45,7 @@ class Write extends Component<StateType, WritePropsType> {
           </div>
           <div class=${styles.buttonWrapper}>
           <button type="submit" class=${styles.submit}>
-            ${this.props.postId ? '수정하기' : '등록하기'}
+            ${postId ? '수정하기' : '등록하기'}
           </button>
           </div>
         </form>
@@ -145,16 +147,16 @@ class Write extends Component<StateType, WritePropsType> {
       return
     }
 
-    if (this.props.postId) {
-      this.editPost(title, content, image)
+    if (this.props.pageParams) {
+      const postId = this.props.pageParams[0]
+      this.editPost(postId, title, content, image)
       return
     }
 
     this.addPost(title, content, image)
   }
 
-  editPost(title: string, content: string, image: string): void {
-    const { postId } = this.props
+  editPost(postId: string, title: string, content: string, image: string): void {
     fetch
       .patch<Response<unknown>>(`/post/${postId}`, {
         title: blockXss(title),
