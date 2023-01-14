@@ -4,7 +4,7 @@ import { PostListType } from '../../types/Post'
 import { PostListRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
 import handleAPIError from '../../utils/handleAPIError'
-import styles from './styles.module.css'
+import $ from './styles.module.css'
 
 interface HomeStateType {
   list: PostListType
@@ -22,7 +22,7 @@ class Home extends Component<HomeStateType, PropsType> {
 
   template(): string {
     return `
-      <a href="/write" class=${styles.buttonWrapper} data-link>
+      <a href="/write" class=${$.buttonWrapper} data-link>
         <button><i></i>새 글 작성하기</button>
       </a>
       <div class="post-list"></div>

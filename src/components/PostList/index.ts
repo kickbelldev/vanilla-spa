@@ -1,7 +1,7 @@
 import Component, { PropsType, StateType } from '../../Component'
 import { PostListType } from '../../types/Post'
 import PostListItem from '../PostListItem'
-import styles from './styles.module.css'
+import $ from './styles.module.css'
 
 interface PostState extends StateType {}
 
@@ -16,7 +16,7 @@ class PostList extends Component<PostState, PostListPropsType> {
 
   template(): string {
     return `
-    <ul class=${styles.list}></ul>
+    <ul class=${$.list}></ul>
     `
   }
 

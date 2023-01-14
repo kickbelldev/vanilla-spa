@@ -2,13 +2,13 @@ import { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 import Component, { PropsType, StateType } from '../../Component'
 import { CommentListType, CommentType, PostType } from '../../types/Post'
-import styles from './styles.module.css'
 import fetch from '../../utils/fetch'
 import { PostRes, Response } from '../../types/Response'
 import CommentSection from '../../components/CommentSection'
 import navigateTo from '../../utils/navigateTo'
 import blockXss from '../../utils/blockXss'
 import handleAPIError from '../../utils/handleAPIError'
+import $ from './styles.module.css'
 
 interface PostStateType extends StateType {
   post?: PostType
@@ -40,38 +40,38 @@ class Post extends Component<PostStateType, PropsType> {
       return ``
     }
     if (!this.state.post) {
-      return `<div class=${styles.notFound}>포스트를 찾을 수 없습니다.</div>`
+      return `<div class=${$.notFound}>포스트를 찾을 수 없습니다.</div>`
     }
     const { post } = this.state
     return `
-    <div class=${styles.container}>
-      <div class=${styles.imgWrapper}>
+    <div class=${$.container}>
+      <div class=${$.imgWrapper}>
         <img src=${post.image}>
       </div>
-      <div class=${styles.content}>
-        <h1 class=${styles.title}>${blockXss(post.title)}</h1>
-        <div class=${styles.datetime}>
+      <div class=${$.content}>
+        <h1 class=${$.title}>${blockXss(post.title)}</h1>
+        <div class=${$.datetime}>
           ${
             dayjs(post.createdAt).isValid()
               ? dayjs(post.createdAt).format('YYYY. MM. DD')
               : 'YYYY. MM. DD'
           }
         </div>
-        <div class=${styles.body}>${blockXss(post.content)}</div>
+        <div class=${$.body}>${blockXss(post.content)}</div>
       </div>
-      <div class=${styles.buttonContainer}>
+      <div class=${$.buttonContainer}>
         <a href="/edit/${post.postId}" data-link>
-          <button class=${styles.edit}><i></i></button>
+          <button class=${$.edit}><i></i></button>
         </a>
-        <button class=${styles.delete}><i></i></button>
+        <button class=${$.delete}><i></i></button>
       </div>
     </div>
-    <div class=${styles.commentContainer}></div>
+    <div class=${$.commentContainer}></div>
     `
   }
 
   setEvent(): void {
-    this.addEvent('click', `.${styles.buttonContainer} .${styles.delete}`, () => {
+    this.addEvent('click', `.${$.buttonContainer} .${$.delete}`, () => {
       this.deletePost()
     })
   }
@@ -93,7 +93,7 @@ class Post extends Component<PostStateType, PropsType> {
   }
 
   renderComment(): void {
-    const $comment = this.target.querySelector(`.${styles.commentContainer}`)!
+    const $comment = this.target.querySelector(`.${$.commentContainer}`)!
     if (!this.state.post) {
       return
     }

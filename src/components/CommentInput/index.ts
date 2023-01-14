@@ -2,7 +2,7 @@ import Component, { PropsType, StateType } from '../../Component'
 import { AddCommentRes, Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
 import handleAPIError from '../../utils/handleAPIError'
-import styles from './styles.module.css'
+import $ from './styles.module.css'
 
 interface CommentPropsType extends PropsType {
   postId: string
@@ -14,21 +14,20 @@ class CommentInput extends Component<StateType, CommentPropsType> {
 
   template(): string {
     return `
-    <form class=${styles.container}>
-      <input class=${styles.default}>
-      <button class=${styles.add}>
-      <i class=${styles.add}></i>
+    <form class=${$.container}>
+      <input class=${$.default}>
+      <button class=${$.add}>
+      <i class=${$.add}></i>
       </button>
     </form>
     `
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${styles.add}`, (e) => {
+    this.addEvent('click', `button.${$.add}`, (e) => {
       e.preventDefault()
 
-      const inputValue = (this.target.querySelector(`input.${styles.default}`) as HTMLInputElement)
-        .value
+      const inputValue = (this.target.querySelector(`input.${$.default}`) as HTMLInputElement).value
       if (!inputValue) {
         window.alert('메시지를 입력해주세요.')
         return

@@ -4,7 +4,7 @@ import { Response } from '../../types/Response'
 import fetch from '../../utils/fetch'
 import handleAPIError from '../../utils/handleAPIError'
 import blockXss from '../../utils/blockXss'
-import styles from './styles.module.css'
+import $ from './styles.module.css'
 
 interface CommentPropsType extends PropsType {
   comment: CommentType
@@ -14,19 +14,19 @@ interface CommentPropsType extends PropsType {
 class Comment extends Component<StateType, CommentPropsType> {
   template(): string {
     return `
-    <div class=${styles.container}>
-      <div class=${styles.content}>
+    <div class=${$.container}>
+      <div class=${$.content}>
         ${blockXss(this.props.comment.content)}
       </div>
-      <button class=${styles.delete}>
-      <i class=${styles.delete}></i>
+      <button class=${$.delete}>
+      <i class=${$.delete}></i>
       </button>
     </div>
     `
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${styles.delete}`, this.deleteComment)
+    this.addEvent('click', `button.${$.delete}`, this.deleteComment)
   }
 
   deleteComment(): void {

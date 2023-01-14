@@ -4,8 +4,8 @@ import fetch from '../../utils/fetch'
 import handleAPIError from '../../utils/handleAPIError'
 import navigateTo from '../../utils/navigateTo'
 import blockXss from '../../utils/blockXss'
-import styles from './styles.module.css'
 import { PostType } from '../../types/Post'
+import $ from './styles.module.css'
 
 interface WritePropsType extends PropsType {
   postId?: string
@@ -26,25 +26,25 @@ class Write extends Component<StateType, WritePropsType> {
     const postId = this.props.pageParams?.[0]
 
     return `
-      <div class=${styles.container}>
+      <div class=${$.container}>
         <form>
-          <div class=${styles.section}>
-            <button type="button" class=${styles.addImage}>
+          <div class=${$.section}>
+            <button type="button" class=${$.addImage}>
               <i></i>
-              <img src="" class=${styles.thumb}>
+              <img src="" class=${$.thumb}>
               <input name="imageInput" type="hidden">
             </button>
           </div>
-          <div class=${styles.section}>
-            <label for="titleInput" class=${styles.default}>제목</label>
-            <input name="titleInput" class=${styles.title}>
+          <div class=${$.section}>
+            <label for="titleInput" class=${$.default}>제목</label>
+            <input name="titleInput" class=${$.title}>
           </div>
-          <div class=${styles.section}>
-            <label for="contentInput" class=${styles.default}>내용</label>
-            <textarea name="contentInput" class=${styles.default}></textarea>
+          <div class=${$.section}>
+            <label for="contentInput" class=${$.default}>내용</label>
+            <textarea name="contentInput" class=${$.default}></textarea>
           </div>
-          <div class=${styles.buttonWrapper}>
-          <button type="submit" class=${styles.submit}>
+          <div class=${$.buttonWrapper}>
+          <button type="submit" class=${$.submit}>
             ${postId ? '수정하기' : '등록하기'}
           </button>
           </div>
@@ -54,10 +54,8 @@ class Write extends Component<StateType, WritePropsType> {
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${styles.addImage}`, (e) => {
-      const $button = (e.target as Element).closest(
-        `button.${styles.addImage}`
-      ) as HTMLButtonElement
+    this.addEvent('click', `button.${$.addImage}`, (e) => {
+      const $button = (e.target as Element).closest(`button.${$.addImage}`) as HTMLButtonElement
       this.getImage($button)
     })
 
@@ -86,13 +84,13 @@ class Write extends Component<StateType, WritePropsType> {
   }
 
   renderPost(post: PostType): void {
-    const $title = this.target.querySelector(`input.${styles.title}`) as HTMLInputElement
+    const $title = this.target.querySelector(`input.${$.title}`) as HTMLInputElement
     $title.value = blockXss(post.title)
 
-    const $content = this.target.querySelector(`textarea.${styles.default}`) as HTMLTextAreaElement
+    const $content = this.target.querySelector(`textarea.${$.default}`) as HTMLTextAreaElement
     $content.innerHTML = blockXss(post.content)
 
-    const $thumb = this.target.querySelector(`img.${styles.thumb}`) as HTMLImageElement
+    const $thumb = this.target.querySelector(`img.${$.thumb}`) as HTMLImageElement
     const $image = this.target.querySelector('input[name="imageInput"]') as HTMLInputElement
     $image.value = $thumb.src = blockXss(post.image)
   }
@@ -115,7 +113,7 @@ class Write extends Component<StateType, WritePropsType> {
 
   setImageData($button: HTMLButtonElement, imageUrl: string): void {
     const imageInput = $button.querySelector('input[name="imageInput"]') as HTMLInputElement
-    const thumb = $button.querySelector(`img.${styles.thumb}`) as HTMLImageElement
+    const thumb = $button.querySelector(`img.${$.thumb}`) as HTMLImageElement
     imageInput.value = thumb.src = imageUrl
   }
 
