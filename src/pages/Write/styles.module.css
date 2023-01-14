@@ -9,7 +9,7 @@
 input.title {
   width: 100%;
   font-size: 20px;
-  line-height: 23px;
+  line-height: 1.65;
   padding: 10px 8px;
   border: none;
   outline: none;
@@ -21,7 +21,7 @@ label.default {
   margin: 16px 0;
   font-weight: 700;
   font-size: 24px;
-  line-height: 28px;
+  line-height: 1.65;
 }
 
 textarea.default {
