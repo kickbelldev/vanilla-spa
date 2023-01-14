@@ -1,9 +1,9 @@
-import Component, { PropsType, StateType } from '../../Component'
-import { CommentType } from '../../types/Post'
-import { Response } from '../../types/Response'
-import fetch from '../../utils/fetch'
-import handleAPIError from '../../utils/handleAPIError'
-import blockXss from '../../utils/blockXss'
+import Component, { PropsType, StateType } from '@src/Component'
+import { CommentType } from '@src/types/Post'
+import { Response } from '@src/types/Response'
+import fetch from '@src/utils/fetch'
+import handleAPIError from '@src/utils/handleAPIError'
+import blockXss from '@src/utils/blockXss'
 import $ from './styles.module.css'
 
 interface CommentPropsType extends PropsType {

@@ -1,7 +1,7 @@
-import Component, { PropsType, StateType } from '../../Component'
-import { CommentListType } from '../../types/Post'
-import Comment from '../Comment'
-import CommentInput from '../CommentInput'
+import Component, { PropsType, StateType } from '@src/Component'
+import { CommentListType } from '@src/types/Post'
+import Comment from '@src/components/Comment'
+import CommentInput from '@src/components/CommentInput'
 import $ from './styles.module.css'
 
 interface CommentSectionPropsType extends PropsType {

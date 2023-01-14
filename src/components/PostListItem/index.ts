@@ -1,6 +1,6 @@
-import Component, { PropsType, StateType } from '../../Component'
-import { PostType } from '../../types/Post'
-import blockXss from '../../utils/blockXss'
+import Component, { PropsType, StateType } from '@src/Component'
+import { PostType } from '@src/types/Post'
+import blockXss from '@src/utils/blockXss'
 import $ from './styles.module.css'
 
 interface PostState extends StateType {}

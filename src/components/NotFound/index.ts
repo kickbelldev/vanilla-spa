@@ -1,4 +1,4 @@
-import Component, { PropsType, StateType } from '../../Component'
+import Component, { PropsType, StateType } from '@src/Component'
 import $ from './styles.module.css'
 
 class NotFound extends Component<StateType, PropsType> {

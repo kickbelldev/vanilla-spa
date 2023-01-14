@@ -1,9 +1,9 @@
-import Component, { PropsType } from '../../Component'
-import PostList from '../../components/PostList'
-import { PostListType } from '../../types/Post'
-import { PostListRes, Response } from '../../types/Response'
-import fetch from '../../utils/fetch'
-import handleAPIError from '../../utils/handleAPIError'
+import Component, { PropsType } from '@src/Component'
+import PostList from '@src/components/PostList'
+import { PostListType } from '@src/types/Post'
+import { PostListRes, Response } from '@src/types/Response'
+import fetch from '@src/utils/fetch'
+import handleAPIError from '@src/utils/handleAPIError'
 import $ from './styles.module.css'
 
 interface HomeStateType {

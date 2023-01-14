@@ -20,4 +20,11 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [['@src', './src']],
+      },
+    },
+  },
 }

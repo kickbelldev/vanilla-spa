@@ -1,6 +1,6 @@
-import Component, { PropsType, StateType } from '../../Component'
-import { PostListType } from '../../types/Post'
-import PostListItem from '../PostListItem'
+import Component, { PropsType, StateType } from '@src/Component'
+import { PostListType } from '@src/types/Post'
+import PostListItem from '@src/components/PostListItem'
 import $ from './styles.module.css'
 
 interface PostState extends StateType {}

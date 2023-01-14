@@ -1,10 +1,10 @@
-import Component, { PropsType, StateType } from '../../Component'
-import { PostRes, Response, AddPostRes, UnsplashRes } from '../../types/Response'
-import fetch from '../../utils/fetch'
-import handleAPIError from '../../utils/handleAPIError'
-import navigateTo from '../../utils/navigateTo'
-import blockXss from '../../utils/blockXss'
-import { PostType } from '../../types/Post'
+import Component, { PropsType, StateType } from '@src/Component'
+import { PostRes, Response, AddPostRes, UnsplashRes } from '@src/types/Response'
+import fetch from '@src/utils/fetch'
+import handleAPIError from '@src/utils/handleAPIError'
+import navigateTo from '@src/utils/navigateTo'
+import blockXss from '@src/utils/blockXss'
+import { PostType } from '@src/types/Post'
 import $ from './styles.module.css'
 
 interface WritePropsType extends PropsType {
