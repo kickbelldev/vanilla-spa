@@ -3,9 +3,10 @@
   min-width: 360px;
   width: 100%;
   max-width: 640px;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   position: relative;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
 }
 
 #root > :first-child {

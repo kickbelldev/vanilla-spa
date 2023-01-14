@@ -25,6 +25,7 @@ button.back {
   background: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 button.back i {
