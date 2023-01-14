@@ -145,7 +145,7 @@ class Write extends Component<StateType, WritePropsType> {
       return
     }
 
-    if (this.props.pageParams) {
+    if (this.props.pageParams?.[0]) {
       const postId = this.props.pageParams[0]
       this.editPost(postId, title, content, image)
       return
