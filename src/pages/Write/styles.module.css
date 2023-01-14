@@ -12,6 +12,7 @@ input.title {
   line-height: 1.65;
   padding: 10px 8px;
   border: none;
+  border-radius: 0;
   outline: none;
   border-bottom: 2px solid #000;
 }
