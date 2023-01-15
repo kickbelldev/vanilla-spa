@@ -17,7 +17,7 @@ class CommentInput extends Component<StateType, CommentPropsType> {
     <form class=${$.container}>
       <input class=${$.default}>
       <button class=${$.add}>
-      <i class=${$.add}></i>
+        <i class=${$.add}></i>
       </button>
     </form>
     `
