@@ -1,25 +1,76 @@
-import { getQueriesForElement } from '@testing-library/dom'
-import blockXss from '@src/utils/blockXss'
-import Comment from './index'
+import Component from '@src/Component'
+import { CommentType } from '@src/types/Post'
+import getTestRender from '@src/utils/getTestRender'
+import { waitFor } from '@testing-library/dom'
+import { AxiosResponse } from 'axios'
+import Comment, { CommentPropsType } from './index'
+import axios from 'axios'
 
-function render() {
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-  new Comment(container, {
-    comment: { postId: '1', commentId: '5', content: '테스트' },
-    deleteCommentCallback: () => {},
-  })
-  return {
-    container,
-    ...getQueriesForElement(container),
-  }
+jest.mock('axios')
+const mockedaxios = axios as jest.Mocked<typeof axios>
+
+const comment: CommentType = {
+  postId: '1',
+  commentId: '5',
+  content: '테스트',
 }
 
-test('render', async () => {
-  const { getByText } = render()
-  const content = getByText(blockXss('테스트'))
+const data: CommentPropsType = {
+  comment,
+  deleteCommentCallback: jest.fn(),
+}
 
-  console.log(content)
+const render = getTestRender(Comment as typeof Component, data)
 
-  expect(content).toBe('테스트')
+describe('Comment 컴포넌트', () => {
+  beforeEach(() => {
+    data.deleteCommentCallback = jest.fn()
+  })
+
+  it('렌더링', async () => {
+    const { getByTestId } = render()
+
+    const contentText = '테스트'
+    const content = getByTestId('content')
+    expect(content).toHaveTextContent(contentText)
+
+    const button = getByTestId('delete-button')
+    expect(button).toBeInTheDocument()
+  })
+
+  it('댓글 삭제 성공', async () => {
+    const { component, getByTestId } = render()
+
+    const commentComponent = component as Comment
+    const deleteComment = jest.spyOn(commentComponent, 'deleteComment')
+
+    const mockResponse: Partial<AxiosResponse> = { data: { code: 200 }, status: 200 }
+    mockedaxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
+
+    const button = getByTestId('delete-button')
+    button.click()
+
+    await waitFor(() => {
+      expect(deleteComment).toBeCalled()
+      expect(data.deleteCommentCallback).toBeCalled()
+    })
+  })
+
+  it('댓글 삭제 실패', async () => {
+    const { component, getByTestId } = render()
+
+    const commentComponent = component as Comment
+    const deleteComment = jest.spyOn(commentComponent, 'deleteComment')
+
+    const mockResponse: Partial<AxiosResponse> = { data: { code: 400 }, status: 400 }
+    mockedaxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
+
+    const button = getByTestId('delete-button')
+    button.click()
+
+    await waitFor(() => {
+      expect(deleteComment).toBeCalled()
+      expect(data.deleteCommentCallback).not.toHaveBeenCalled()
+    })
+  })
 })

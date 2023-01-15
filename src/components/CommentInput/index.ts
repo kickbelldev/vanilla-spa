@@ -4,12 +4,12 @@ import fetch from '@src/utils/fetch'
 import handleAPIError from '@src/utils/handleAPIError'
 import $ from './styles.module.css'
 
-interface CommentPropsType extends PropsType {
+export interface CommentInputPropsType extends PropsType {
   postId: string
   addCommentCallback: (content: string, commentId: string) => void
 }
 
-class CommentInput extends Component<StateType, CommentPropsType> {
+class CommentInput extends Component<StateType, CommentInputPropsType> {
   didMount(): void {}
 
   template(): string {

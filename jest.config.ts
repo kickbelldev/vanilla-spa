@@ -12,6 +12,7 @@ const config: Config = {
     '\\.(css|less|scss|sss|styl)$': ['<rootDir>/node_modules/jest-css-modules'],
   },
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
+  collectCoverageFrom: ['<rootDir>/src/**/*.[jt]s'],
 }
 
 export default config
