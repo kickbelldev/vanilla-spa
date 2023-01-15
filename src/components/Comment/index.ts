@@ -26,7 +26,7 @@ class Comment extends Component<StateType, CommentPropsType> {
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${$.delete}`, this.deleteComment)
+    this.addEvent('click', `button.${$.delete}`, () => this.deleteComment())
   }
 
   deleteComment(): void {
