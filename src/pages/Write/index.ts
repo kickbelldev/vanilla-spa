@@ -100,7 +100,7 @@ class Write extends Component<StateType, WritePropsType> {
     fetch
       .get<UnsplashRes>(url, {
         headers: {
-          Authorization: `Client-ID ${import.meta.env.VITE_UNSPLASH_API_KEY}`,
+          Authorization: `Client-ID ${process.env.VITE_UNSPLASH_API_KEY}`,
         },
       })
       .then(({ data }) => {
