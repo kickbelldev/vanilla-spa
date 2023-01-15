@@ -15,9 +15,9 @@ class Comment extends Component<StateType, CommentPropsType> {
   template(): string {
     return `
     <div class=${$.container}>
-      <div class=${$.content}>
+      <p class=${$.content}>
         ${blockXss(this.props.comment.content)}
-      </div>
+      </p>
       <button class=${$.delete}>
       <i class=${$.delete}></i>
       </button>
@@ -26,14 +26,12 @@ class Comment extends Component<StateType, CommentPropsType> {
   }
 
   setEvent(): void {
-    this.addEvent('click', `button.${$.delete}`, this.deleteComment)
+    this.addEvent('click', `button.${$.delete}`, () => this.deleteComment())
   }
 
   deleteComment(): void {
-    fetch
-      .delete<Response<unknown>>(`/comment/${this.props.comment.commentId}`)
-      .then(() => this.props.deleteCommentCallback(this.props.comment.commentId))
-      .catch(handleAPIError)
+    const commentId = this.props.comment.commentId
+    this.props.deleteCommentCallback(commentId)
   }
 }
 

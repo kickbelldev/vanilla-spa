@@ -127,12 +127,16 @@ class Post extends Component<PostStateType, PropsType> {
   }
 
   deleteCommentCallback = (commentId: string): void => {
-    if (!this.state.comments) {
-      return
-    }
-
-    const newComments = this.state.comments.filter((comment) => commentId !== comment.commentId)
-    this.setState({ comments: newComments })
+    fetch
+      .delete<Response<unknown>>(`/comment/${commentId}`)
+      .then(() => {
+        if (!this.state.comments) {
+          return
+        }
+        const newComments = this.state.comments.filter((comment) => commentId !== comment.commentId)
+        this.setState({ comments: newComments })
+      })
+      .catch(handleAPIError)
   }
 
   addCommentCallback = (content: string, commentId: string): void => {
