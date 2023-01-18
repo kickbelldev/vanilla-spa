@@ -37,6 +37,22 @@ describe('CommentInput 컴포넌트', () => {
     expect(i).toBeInTheDocument()
   })
 
+  it('댓글 미입력', async () => {
+    const { component, getByTestId } = render()
+
+    const commentInputComponent = component as CommentInput
+    const addComment = jest.spyOn(commentInputComponent, 'addComment')
+
+    const button = getByTestId('add-button')
+
+    userEvent.click(button)
+
+    await waitFor(() => {
+      expect(window.alert).toBeCalledWith('메시지를 입력해주세요.')
+      expect(addComment).not.toBeCalled()
+    })
+  })
+
   it('댓글 작성 성공', async () => {
     const { component, getByTestId } = render()
 
@@ -66,7 +82,7 @@ describe('CommentInput 컴포넌트', () => {
 
     const button = getByTestId('add-button')
 
-    button.click()
+    userEvent.click(button)
 
     await waitFor(() => {
       expect(addComment).toBeCalled()
@@ -99,7 +115,7 @@ describe('CommentInput 컴포넌트', () => {
 
     const button = getByTestId('add-button')
 
-    button.click()
+    userEvent.click(button)
 
     await waitFor(() => {
       expect(addComment).toBeCalled()

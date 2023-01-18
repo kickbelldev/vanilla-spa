@@ -3,13 +3,11 @@ import { PostType } from '@src/types/Post'
 import blockXss from '@src/utils/blockXss'
 import $ from './styles.module.css'
 
-interface PostState extends StateType {}
-
-interface PostProps extends PropsType {
+export interface PostListItemPropsType extends PropsType {
   post: PostType
 }
 
-class PostListItem extends Component<PostState, PostProps> {
+class PostListItem extends Component<StateType, PostListItemPropsType> {
   template(): string {
     return `
       <a href="/post/${this.props.post.postId}" data-link>

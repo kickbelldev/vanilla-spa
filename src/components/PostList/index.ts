@@ -3,13 +3,11 @@ import { PostListType } from '@src/types/Post'
 import PostListItem from '@src/components/PostListItem'
 import $ from './styles.module.css'
 
-interface PostState extends StateType {}
-
-interface PostListPropsType extends PropsType {
+export interface PostListPropsType extends PropsType {
   list: PostListType
 }
 
-class PostList extends Component<PostState, PostListPropsType> {
+class PostList extends Component<StateType, PostListPropsType> {
   didMount(): void {
     this.renderList()
   }
