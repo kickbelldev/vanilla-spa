@@ -3,6 +3,7 @@ import { CommentType, PostListType, PostType } from './Post'
 export interface Response<T> {
   code?: number
   success?: boolean
+  message?: string
   data: T
 }
 

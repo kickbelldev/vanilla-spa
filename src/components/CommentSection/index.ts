@@ -4,7 +4,7 @@ import Comment from '@src/components/Comment'
 import CommentInput from '@src/components/CommentInput'
 import $ from './styles.module.css'
 
-interface CommentSectionPropsType extends PropsType {
+export interface CommentSectionPropsType extends PropsType {
   comments: CommentListType
   postId: string
   deleteCommentCallback: (commentId: string) => void

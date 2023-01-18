@@ -22,9 +22,8 @@ class Component<S extends StateType, P extends PropsType> {
 
   setup() {}
 
-  template() {
-    return `<div></div>`
-  }
+  template(): string | void {}
+
   render() {
     const template = this.template()
     if (!template) return

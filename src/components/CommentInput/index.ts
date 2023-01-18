@@ -4,20 +4,20 @@ import fetch from '@src/utils/fetch'
 import handleAPIError from '@src/utils/handleAPIError'
 import $ from './styles.module.css'
 
-interface CommentPropsType extends PropsType {
+export interface CommentInputPropsType extends PropsType {
   postId: string
   addCommentCallback: (content: string, commentId: string) => void
 }
 
-class CommentInput extends Component<StateType, CommentPropsType> {
+class CommentInput extends Component<StateType, CommentInputPropsType> {
   didMount(): void {}
 
   template(): string {
     return `
-    <form class=${$.container}>
-      <input class=${$.default}>
-      <button class=${$.add}>
-      <i class=${$.add}></i>
+    <form class=${$.container} data-testid="form">
+      <input class=${$.default} data-testid="input">
+      <button class=${$.add} data-testid="add-button">
+        <i class=${$.add} data-testid="add-icon"></i>
       </button>
     </form>
     `
@@ -45,7 +45,7 @@ class CommentInput extends Component<StateType, CommentPropsType> {
           this.props.addCommentCallback(res.data.content, '' + res.data.commentId)
           return
         }
-        window.alert(`요청을 실패했습니다.`)
+        window.alert(res.message)
       })
       .catch(handleAPIError)
   }

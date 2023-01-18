@@ -130,7 +130,6 @@ class Post extends Component<PostStateType, PropsType> {
     if (!this.state.comments) {
       return
     }
-
     const newComments = this.state.comments.filter((comment) => commentId !== comment.commentId)
     this.setState({ comments: newComments })
   }

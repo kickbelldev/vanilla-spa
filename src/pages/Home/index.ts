@@ -16,8 +16,7 @@ class Home extends Component<HomeStateType, PropsType> {
   }
 
   didUpdate(): void {
-    const $postList: Element = this.target.querySelector('.post-list')!
-    new PostList($postList, { list: this.state.list })
+    this.renderPostList()
   }
 
   template(): string {
@@ -36,6 +35,11 @@ class Home extends Component<HomeStateType, PropsType> {
         this.setState({ list: res.data.posts })
       })
       .catch(handleAPIError)
+  }
+
+  renderPostList(): void {
+    const $postList: Element = this.target.querySelector('.post-list')!
+    new PostList($postList, { list: this.state.list })
   }
 }
 
