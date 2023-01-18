@@ -7,7 +7,7 @@ import Comment, { CommentPropsType } from './index'
 import axios from 'axios'
 
 jest.mock('axios')
-const mockedaxios = axios as jest.Mocked<typeof axios>
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
 const comment: CommentType = {
   postId: '1',
@@ -27,7 +27,7 @@ describe('Comment 컴포넌트', () => {
     data.deleteCommentCallback = jest.fn()
   })
 
-  it('렌더링', async () => {
+  it('렌더링', () => {
     const { getByTestId } = render()
 
     const contentText = '테스트'
@@ -45,7 +45,7 @@ describe('Comment 컴포넌트', () => {
     const deleteComment = jest.spyOn(commentComponent, 'deleteComment')
 
     const mockResponse: Partial<AxiosResponse> = { data: { code: 200 }, status: 200 }
-    mockedaxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
+    mockedAxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
 
     const button = getByTestId('delete-button')
     button.click()
@@ -63,7 +63,7 @@ describe('Comment 컴포넌트', () => {
     const deleteComment = jest.spyOn(commentComponent, 'deleteComment')
 
     const mockResponse: Partial<AxiosResponse> = { data: { code: 400 }, status: 400 }
-    mockedaxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
+    mockedAxios.delete.mockReturnValue(new Promise((res) => res(mockResponse)))
 
     const button = getByTestId('delete-button')
     button.click()

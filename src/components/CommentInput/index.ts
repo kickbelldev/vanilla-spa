@@ -14,10 +14,10 @@ class CommentInput extends Component<StateType, CommentInputPropsType> {
 
   template(): string {
     return `
-    <form class=${$.container}>
-      <input class=${$.default}>
-      <button class=${$.add}>
-        <i class=${$.add}></i>
+    <form class=${$.container} data-testid="form">
+      <input class=${$.default} data-testid="input">
+      <button class=${$.add} data-testid="add-button">
+        <i class=${$.add} data-testid="add-icon"></i>
       </button>
     </form>
     `
@@ -45,7 +45,7 @@ class CommentInput extends Component<StateType, CommentInputPropsType> {
           this.props.addCommentCallback(res.data.content, '' + res.data.commentId)
           return
         }
-        window.alert(`요청을 실패했습니다.`)
+        window.alert(res.message)
       })
       .catch(handleAPIError)
   }
