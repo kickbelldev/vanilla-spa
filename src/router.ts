@@ -10,36 +10,38 @@ import NotFound from './components/NotFound'
 interface Route {
   path: string
   view: typeof Component
-  resolved?: RegExpMatchArray | null
+  resolved: RegExpMatchArray | null
 }
 
 const routes: Route[] = [
-  { path: '/', view: Home as typeof Component },
-  { path: '/post/:id', view: Post as typeof Component },
-  { path: '/edit/:id', view: Write as typeof Component },
-  { path: '/write', view: Write as typeof Component },
+  { path: '/', view: Home as typeof Component, resolved: null },
+  { path: '/post/:id', view: Post as typeof Component, resolved: null },
+  { path: '/edit/:id', view: Write as typeof Component, resolved: null },
+  { path: '/write', view: Write as typeof Component, resolved: null },
 ]
 
 const router = () => {
   const { pathname } = location
 
-  const resolvedRoutes: Route[] = routes.map((route) => ({
-    ...route,
-    resolved: pathname.match(pathToRegex(route.path)),
-  }))
+  const resolvedRoutes = routes.map((route) => {
+    const resolved = pathname.match(pathToRegex(route.path))
+    return {
+      ...route,
+      resolved,
+    }
+  })
 
   const match = resolvedRoutes.find((route) => route.resolved)
 
   const $root = document.querySelector('#root')!
 
-  if (!match) {
+  if (!match?.resolved) {
     new Page($root, {}, NotFound as typeof Component)
     return
   }
 
-  match.resolved?.shift()
-
-  const props: PropsType = { pageParams: _.toArray(match.resolved) }
+  const pageParams = _.toArray(match.resolved.slice(1))
+  const props: PropsType = { pageParams }
 
   new Page($root, props, match.view)
 }
